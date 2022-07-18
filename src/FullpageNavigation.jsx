@@ -70,7 +70,7 @@ class FullpageNavigation extends PureComponent {
                   height: (number === i) ? 14 : 10,
                   width: (number === i) ? 14 : 10,
                   margin: (number === i) ? 3 : 5,
-                  backgroundColor: (reverse) ? 'white' : 'black',
+                  backgroundColor: (number === i) ? 'yellow' : 'white',
                   opacity: (number === i) ? 1 : 0.5,
                   transition: `all ${transitionTiming * 0.5}ms ease-in-out`,
                   ...itemStyle,
