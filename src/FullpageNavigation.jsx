@@ -16,6 +16,12 @@ class FullpageNavigation extends PureComponent {
     style: {},
     itemStyle: {},
     reverse: false,
+    buttonWidth: [14, 10],
+    buttonHeight: [14, 10],
+    margin: [3,3],
+    color: ['yellow', 'white'],
+    opacity: 0.6,
+    borderRadius: '50%'
   };
 
   static propTypes = {
@@ -33,7 +39,7 @@ class FullpageNavigation extends PureComponent {
   };
 
   render() {
-    const { style, itemStyle, reverse = false } = this.props;
+    const { style, itemStyle, reverse = false, buttonWidth, buttonHeight, color, margin, opacity, borderRadius } = this.props;
     const {
       number, slides, transitionTiming,
     } = this.context;
@@ -66,12 +72,12 @@ class FullpageNavigation extends PureComponent {
             >
               <div
                 style={{
-                  borderRadius: '50%',
-                  height: (number === i) ? 14 : 10,
-                  width: (number === i) ? 14 : 10,
-                  margin: (number === i) ? 3 : 5,
-                  backgroundColor: (number === i) ? 'yellow' : 'white',
-                  opacity: (number === i) ? 1 : 0.5,
+                  borderRadius: borderRadius,
+                  height: (number === i) ? buttonHeight[0] : buttonHeight[1],
+                  width: (number === i) ? buttonWidth[0] : buttonWidth[1],
+                  margin: (number === i) ? margin[0] : margin[1],
+                  backgroundColor: (number === i) ? color[0] : color[1],
+                  opacity: (number === i) ? 1 : opacity,
                   transition: `all ${transitionTiming * 0.5}ms ease-in-out`,
                   ...itemStyle,
                 }}

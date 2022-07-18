@@ -70,7 +70,7 @@ class Fullpage extends PureComponent {
       slide: this.slides[0],
     });
     if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('wheel', this.handleScroll);
       window.addEventListener('resize', this.handleResize);
     }
     if (typeof document !== 'undefined') {
@@ -81,7 +81,7 @@ class Fullpage extends PureComponent {
   componentWillUnmount() {
     // set body height == to 'auto'
     if (typeof window !== 'undefined') {
-      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('wheel', this.handleScroll);
       window.removeEventListener('resize', this.handleResize);
     }
     if (typeof document !== 'undefined') {
@@ -120,7 +120,7 @@ class Fullpage extends PureComponent {
     return slide;
   }
 
-  handleScroll() {
+  handleScroll(event) {
     const {
       resetScroll,
       translateY,
@@ -145,16 +145,43 @@ class Fullpage extends PureComponent {
           resetScroll: false,
         });
 
-        const newSlide = this.slides.find((slide) => {
+        /* const newSlide = this.slides.find((slide) => {
           const el = slide.el.current;
           return pageYOffset < el.offsetTop + (el.offsetHeight * 0.5);
-        });
-        this.goto(newSlide);
+        }); */
+        var newSlide;
+        if(event){
+          const deltaY = event.deltaY;
+          if(deltaY > 0){
+            newSlide = this.slides[this.getNextSlide()]
+          }else{
+            newSlide = this.slides[this.getPrevSlide()]
+          }
+          this.goto(newSlide);
+        }
         this.ticking = false;
       });
     }
     this.ticking = true;
     return true;
+  }
+
+  getNextSlide(){
+    const curIndex = this.state.number;
+    if(curIndex < this.slides.length - 1){
+      return curIndex + 1
+    }else{
+      return this.slides.length - 1
+    }
+  }
+
+  getPrevSlide(){
+    const curIndex = this.state.number;
+    if(curIndex > 0){
+      return curIndex - 1
+    }else{
+      return 0
+    }
   }
 
   handleResize() {
@@ -252,7 +279,7 @@ class Fullpage extends PureComponent {
 
       setTimeout(() => {
         this.lockScroll = false;
-      }, 1000);
+      }, transitionTiming);
 
       const {
         onShow,
