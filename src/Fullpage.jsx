@@ -158,6 +158,8 @@ class Fullpage extends PureComponent {
             newSlide = this.slides[this.getPrevSlide()]
           }
           this.goto(newSlide);
+        }else{
+          this.goto(this.slides[0])
         }
         this.ticking = false;
       });

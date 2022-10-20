@@ -5,8 +5,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FullpageContext from './FullpageContext';
+import { CSSTransition } from 'react-transition-group';
 
-const FullpageSectionContext = React.createContext();
+export const FullpageSectionContext = React.createContext();
 
 class FullpageSection extends PureComponent {
   static contextType = FullpageContext;
@@ -15,6 +16,7 @@ class FullpageSection extends PureComponent {
     height: '100vh',
     style: {},
     className: '',
+    transClass: 'section-trans',
     onShow: null, // eslint-disable-line no-unused-vars
     onHide: null, // eslint-disable-line no-unused-vars
   };
@@ -62,11 +64,12 @@ class FullpageSection extends PureComponent {
       height,
       style,
       className,
+      transClass
     } = this.props;
 
     const { getIndex } = this.context;
     this.index = getIndex(this);
-
+    console.log(this.index, this.context.number);
     return (
       <FullpageSectionContext.Provider value={{
         index: this.index,
@@ -77,6 +80,7 @@ class FullpageSection extends PureComponent {
           style={{
             height,
             ...style,
+
           }}
           ref={this.sectionRef}
         >

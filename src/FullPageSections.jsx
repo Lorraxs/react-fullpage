@@ -46,9 +46,9 @@ class FullPageSections extends PureComponent {
                 name="Inner"
                 className={className}
                 style={{
-                  transition: `transform ${ctx.transitionTiming}ms cubic-bezier(0.645, 0.045, 0.355, 1.000)`,
+                  //transition: `transform ${ctx.transitionTiming}ms cubic-bezier(0.645, 0.045, 0.355, 1.000)`,
                   ...style,
-                  transform: `translate3D(0, ${(ctx.translateY)}px, 0)`,
+                  //transform: `translate3D(0, ${(ctx.translateY)}px, 0)`,
                 }}
                 ref={ctx.fullpageRef}
               >
